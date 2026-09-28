@@ -1,10 +1,442 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-    </head>
-    <body>
-        Hello world! <br />
-        This is rhett-lee's website!
-    </body>
+<html lang="zh-CN" data-theme="dark" data-lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nim_duilib - 跨平台 C++ 桌面 UI 框架</title>
+  <meta name="description" content="nim_duilib 是一款基于 C++ 的跨平台桌面 UI 框架，XML 驱动皮肤 + Skia 渲染，支持 Windows/Linux/macOS/FreeBSD。">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/screenshots/basic.png" type="image/png">
+</head>
+<body>
+
+<!-- ==================== Navigation ==================== -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      <span class="logo-mark">n</span>
+      <span class="logo-text">nim_duilib</span>
+    </a>
+    <button id="nav-toggle" class="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div id="nav-links" class="nav-links">
+      <a href="#features"><span class="i18n-cn">特性</span><span class="i18n-en">Features</span></a>
+      <a href="#screenshots"><span class="i18n-cn">截图</span><span class="i18n-en">Screenshots</span></a>
+      <a href="#platforms"><span class="i18n-cn">平台</span><span class="i18n-en">Platforms</span></a>
+      <a href="#quickstart"><span class="i18n-cn">快速上手</span><span class="i18n-en">Quick Start</span></a>
+      <a href="#ai"><span class="i18n-cn">AI 辅助</span><span class="i18n-en">AI</span></a>
+      <a href="#docs"><span class="i18n-cn">文档</span><span class="i18n-en">Docs</span></a>
+      <a href="https://github.com/rhett-lee/nim_duilib" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="nav-actions">
+      <button id="lang-toggle" class="nav-toggle-btn" aria-label="Language">EN</button>
+      <button id="theme-toggle" class="nav-toggle-btn" aria-label="Theme">&#9728;</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== Hero ==================== -->
+<section id="hero" class="hero">
+  <div class="container">
+    <h1 class="hero-title">nim_duilib</h1>
+    <p class="hero-subtitle">
+      <span class="i18n-cn">基于 C++ 的跨平台桌面 UI 框架，XML 驱动皮肤 + Skia 渲染引擎</span>
+      <span class="i18n-en">Cross-Platform C++ Desktop UI Framework with XML-Driven Skins &amp; Skia Rendering</span>
+    </p>
+    <div class="hero-badges">
+      <span class="badge badge-green">MIT</span>
+      <span class="badge badge-blue">C++20</span>
+      <span class="badge badge-blue">C++17</span>
+      <span class="badge badge-orange">Skia</span>
+      <span class="badge badge-purple">Cross-Platform</span>
+    </div>
+    <div class="hero-cta">
+      <a href="https://github.com/rhett-lee/nim_duilib" target="_blank" rel="noopener" class="btn btn-filled">
+        <span class="i18n-cn">GitHub 仓库</span>
+        <span class="i18n-en">GitHub Repo</span>
+      </a>
+      <a href="#quickstart" class="btn btn-outline">
+        <span class="i18n-cn">快速上手</span>
+        <span class="i18n-en">Quick Start</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== Features ==================== -->
+<section id="features" class="section">
+  <div class="container">
+    <h2 class="section-title">
+      <span class="i18n-cn">核心特性</span>
+      <span class="i18n-en">Core Features</span>
+    </h2>
+    <p class="section-subtitle">
+      <span class="i18n-cn">从界面描述到渲染引擎，从控件体系到跨平台支持，nim_duilib 提供完整的桌面应用开发方案</span>
+      <span class="i18n-en">From XML layout to Skia rendering, from controls to cross-platform — a complete desktop UI solution</span>
+    </p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">&#128196;</div>
+        <h3 class="card-title"><span class="i18n-cn">XML 布局驱动</span><span class="i18n-en">XML Layout Driven</span></h3>
+        <p class="card-desc"><span class="i18n-cn">采用 XML 文件定义界面结构，将界面布局与业务逻辑完全分离。修改 XML 即可调整控件位置、尺寸和样式，无需改动 C++ 核心代码。</span><span class="i18n-en">Define UI structure in XML files, fully separating layout from business logic. Adjust control position, size and style by editing XML — no C++ changes needed.</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9881;</div>
+        <h3 class="card-title"><span class="i18n-cn">Skia 渲染引擎</span><span class="i18n-en">Skia Rendering Engine</span></h3>
+        <p class="card-desc"><span class="i18n-cn">使用 Skia 作为渲染引擎，实现控件的无窗口绘制，减少系统资源占用，提升界面刷新速度。支持 CPU 和 GPU 硬件加速渲染。</span><span class="i18n-en">Skia-powered windowless rendering with low resource usage and fast refresh. Supports both CPU and GPU hardware-accelerated rendering.</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#129518;</div>
+        <h3 class="card-title"><span class="i18n-cn">50+ 控件体系</span><span class="i18n-en">50+ Controls</span></h3>
+        <p class="card-desc"><span class="i18n-cn">内置按钮、文本框、列表视图、虚表控件、树形控件、滑块、进度条、菜单、颜色选择、属性页、标签页等控件，同时支持自定义控件开发。</span><span class="i18n-en">Built-in buttons, text boxes, list views, virtual lists, tree views, sliders, progress bars, menus, color pickers, property grids, tab controls and more. Custom controls supported.</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#127760;</div>
+        <h3 class="card-title"><span class="i18n-cn">跨平台支持</span><span class="i18n-en">Cross-Platform</span></h3>
+        <p class="card-desc"><span class="i18n-cn">支持 Windows 7/10/11+、Linux（OpenEuler、统信UOS、Ubuntu 等）、macOS 12+ 和 FreeBSD，基于 SDL3 实现跨平台窗口管理。</span><span class="i18n-en">Supports Windows 7/10/11+, Linux (OpenEuler, UOS, Ubuntu, etc.), macOS 12+ and FreeBSD. Cross-platform window management via SDL3.</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#127912;</div>
+        <h3 class="card-title"><span class="i18n-cn">动态换肤</span><span class="i18n-en">Dynamic Theming</span></h3>
+        <p class="card-desc"><span class="i18n-cn">通过 XML 文件定义皮肤结构，轻松改变界面风格。默认支持浅色和深色主题，支持设置强调色，并提供设计主题的辅助工具。</span><span class="i18n-en">Define skins in XML for easy style changes. Built-in light and dark themes, accent color customization, and theme design tools.</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128269;</div>
+        <h3 class="card-title"><span class="i18n-cn">DPI 感知</span><span class="i18n-en">DPI Awareness</span></h3>
+        <p class="card-desc"><span class="i18n-cn">支持 Unaware、SystemAware、PerMonitorAware、PerMonitorAware_V2 四种 DPI 模式，支持独立设置 DPI，完美适配高清显示（仅限 Windows 平台）。</span><span class="i18n-en">Four DPI modes: Unaware, SystemAware, PerMonitorAware, PerMonitorAware_V2. Independent DPI setting for high-DPI displays (Windows only).</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#127760;</div>
+        <h3 class="card-title"><span class="i18n-cn">多语言国际化</span><span class="i18n-en">Multi-Language i18n</span></h3>
+        <p class="card-desc"><span class="i18n-cn">支持动态多种语言切换，便于开发全球化的应用程序。运行时无缝切换语言，无需重启程序。</span><span class="i18n-en">Dynamic multi-language switching for globalized applications. Switch languages at runtime without restart.</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#127916;</div>
+        <h3 class="card-title"><span class="i18n-cn">动画格式支持</span><span class="i18n-en">Animation Support</span></h3>
+        <p class="card-desc"><span class="i18n-cn">支持 GIF、APNG、WEBP、Lottie JSON、PAG 动画文件格式。同时支持控件动画，引入缓动函数，可设置动画时长和播放间隔。</span><span class="i18n-en">Supports GIF, APNG, WEBP, Lottie JSON and PAG animations. Control animations with easing functions, customizable duration and interval.</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128268;</div>
+        <h3 class="card-title"><span class="i18n-cn">CEF 与 WebView2</span><span class="i18n-en">CEF &amp; WebView2</span></h3>
+        <p class="card-desc"><span class="i18n-cn">支持 libcef 109（兼容 Win7）和 142 版本，支持 Linux 和 macOS。同时支持 WebView2 控件用于显示网页，接口封装简单易用。</span><span class="i18n-en">Supports libcef 109 (Win7 compatible) and 142 for Linux/macOS. WebView2 control for web content with simple, easy-to-use API.</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#129302;</div>
+        <h3 class="card-title"><span class="i18n-cn">SDL3 支持</span><span class="i18n-en">SDL3 Support</span></h3>
+        <p class="card-desc"><span class="i18n-cn">可使用 SDL3 作为窗口管理和输入输出基本功能提供者，实现真正的跨平台窗口管理，已适配 Windows/Linux/macOS/FreeBSD。</span><span class="i18n-en">SDL3 for cross-platform window management and I/O. Already adapted for Windows, Linux, macOS and FreeBSD.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== Screenshots ==================== -->
+<section id="screenshots" class="section section-alt">
+  <div class="container">
+    <h2 class="section-title">
+      <span class="i18n-cn">界面效果预览</span>
+      <span class="i18n-en">Screenshot Gallery</span>
+    </h2>
+    <p class="section-subtitle">
+      <span class="i18n-cn">点击图片查看大图。更多示例请参考 GitHub 仓库的 examples 目录。</span>
+      <span class="i18n-en">Click an image to enlarge. More examples in the GitHub repo's examples directory.</span>
+    </p>
+    <div class="screenshot-grid">
+      <div class="screenshot-item">
+        <img src="assets/screenshots/basic.png" alt="Basic Window" loading="lazy">
+        <p class="screenshot-caption"><span class="i18n-cn">基础窗口</span><span class="i18n-en">Basic Window</span></p>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/controls.png" alt="Controls" loading="lazy">
+        <p class="screenshot-caption"><span class="i18n-cn">控件大全</span><span class="i18n-en">Controls</span></p>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/chat.png" alt="Chat" loading="lazy">
+        <p class="screenshot-caption"><span class="i18n-cn">聊天布局</span><span class="i18n-en">Chat Layout</span></p>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/RichEdit.png" alt="RichEdit" loading="lazy">
+        <p class="screenshot-caption"><span class="i18n-cn">富文本编辑</span><span class="i18n-en">RichEdit</span></p>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/TreeView.png" alt="TreeView" loading="lazy">
+        <p class="screenshot-caption"><span class="i18n-cn">树控件</span><span class="i18n-en">TreeView</span></p>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/ListCtrl.png" alt="ListCtrl" loading="lazy">
+        <p class="screenshot-caption"><span class="i18n-cn">列表控件</span><span class="i18n-en">ListCtrl</span></p>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/render01.png" alt="Render" loading="lazy">
+        <p class="screenshot-caption"><span class="i18n-cn">渲染引擎</span><span class="i18n-en">Render Engine</span></p>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/layout.png" alt="Layout" loading="lazy">
+        <p class="screenshot-caption"><span class="i18n-cn">布局展示</span><span class="i18n-en">Layout</span></p>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/ColorPicker.png" alt="ColorPicker" loading="lazy">
+        <p class="screenshot-caption"><span class="i18n-cn">拾色器</span><span class="i18n-en">Color Picker</span></p>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/MultiLang.png" alt="MultiLang" loading="lazy">
+        <p class="screenshot-caption"><span class="i18n-cn">多语言</span><span class="i18n-en">Multi-Language</span></p>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/DpiAware.png" alt="DpiAware" loading="lazy">
+        <p class="screenshot-caption"><span class="i18n-cn">DPI 感知</span><span class="i18n-en">DPI Aware</span></p>
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/screenshots/ColorTheme.png" alt="ColorTheme" loading="lazy">
+        <p class="screenshot-caption"><span class="i18n-cn">主题色</span><span class="i18n-en">Color Theme</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== Platforms ==================== -->
+<section id="platforms" class="section">
+  <div class="container">
+    <h2 class="section-title">
+      <span class="i18n-cn">支持的操作系统</span>
+      <span class="i18n-en">Supported Platforms</span>
+    </h2>
+    <p class="section-subtitle">
+      <span class="i18n-cn">覆盖主流桌面操作系统，支持多种编译器</span>
+      <span class="i18n-en">Covering major desktop operating systems with multiple compiler support</span>
+    </p>
+    <div class="platform-grid">
+      <div class="card">
+        <div class="card-icon platform-icon">&#128187;</div>
+        <h3 class="card-title">Windows</h3>
+        <p class="platform-version">7 / 10 / 11 +</p>
+        <ul class="platform-list">
+          <li>Visual Studio 2022 / 2026</li>
+          <li>Visual Studio 2017 / 2019 (C++17)</li>
+          <li>LLVM / MinGW-W64</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon platform-icon">&#128027;</div>
+        <h3 class="card-title">Linux</h3>
+        <p class="platform-version"><span class="i18n-cn">OpenEuler / UOS / Ubuntu / Debian / Fedora / OpenSuse</span><span class="i18n-en">OpenEuler / UOS / Ubuntu / Debian / Fedora / OpenSuse</span></p>
+        <ul class="platform-list">
+          <li>gcc / g++</li>
+          <li>clang / clang++</li>
+          <li><span class="i18n-cn">支持 CEF</span><span class="i18n-en">CEF supported</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon platform-icon">&#63743;</div>
+        <h3 class="card-title">macOS</h3>
+        <p class="platform-version">12 +</p>
+        <ul class="platform-list">
+          <li>clang / clang++</li>
+          <li><span class="i18n-cn">支持 CEF</span><span class="i18n-en">CEF supported</span></li>
+          <li><span class="i18n-cn">支持系统阴影</span><span class="i18n-en">System shadow</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon platform-icon">&#128044;</div>
+        <h3 class="card-title">FreeBSD</h3>
+        <p class="platform-version"><span class="i18n-cn">最新版</span><span class="i18n-en">Latest</span></p>
+        <ul class="platform-list">
+          <li>clang / clang++</li>
+          <li><span class="i18n-cn">不支持 CEF</span><span class="i18n-en">No CEF</span></li>
+          <li><span class="i18n-cn">仅 LLVM 编译</span><span class="i18n-en">LLVM only</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== Quick Start ==================== -->
+<section id="quickstart" class="section section-alt">
+  <div class="container">
+    <h2 class="section-title">
+      <span class="i18n-cn">快速上手</span>
+      <span class="i18n-en">Quick Start</span>
+    </h2>
+    <p class="section-subtitle">
+      <span class="i18n-cn">三步即可编译运行示例程序</span>
+      <span class="i18n-en">Three steps to build and run example programs</span>
+    </p>
+
+    <div class="quickstart-step">
+      <h3><span class="step-number">1</span> <span class="i18n-cn">克隆仓库</span><span class="i18n-en">Clone the repository</span></h3>
+      <div class="code-block"><pre><code>git clone https://github.com/rhett-lee/nim_duilib</code></pre></div>
+    </div>
+
+    <div class="quickstart-step">
+      <h3><span class="step-number">2</span> <span class="i18n-cn">一键编译（Windows）</span><span class="i18n-en">Build (Windows)</span></h3>
+      <div class="code-block"><pre><code>cd nim_duilib\build
+build_duilib_all_in_one.bat</code></pre></div>
+      <p class="quickstart-note">
+        <span class="i18n-cn">脚本自动下载并编译 Skia 源码和所有依赖库，编译完成后示例程序在 bin 目录中。</span>
+        <span class="i18n-en">The script automatically downloads and compiles Skia source and all dependencies. Example binaries are in the bin directory.</span>
+      </p>
+    </div>
+
+    <div class="quickstart-step">
+      <h3><span class="step-number">2</span> <span class="i18n-cn">一键编译（Linux / macOS / FreeBSD）</span><span class="i18n-en">Build (Linux / macOS / FreeBSD)</span></h3>
+      <div class="code-block"><pre><code>cd nim_duilib/build
+chmod +x build_duilib_all_in_one.sh
+./build_duilib_all_in_one.sh</code></pre></div>
+    </div>
+
+    <div class="quickstart-step">
+      <h3><span class="step-number">3</span> <span class="i18n-cn">运行示例程序</span><span class="i18n-en">Run the examples</span></h3>
+      <div class="code-block"><pre><code><span class="i18n-cn"># 编译完成后，进入 bin 目录运行示例</span><span class="i18n-en"># After build, run examples from the bin directory</span>
+cd bin
+./basic          <span class="i18n-cn"># 基础窗口示例</span><span class="i18n-en"># Basic window</span>
+./controls       <span class="i18n-cn"># 控件大全</span><span class="i18n-en"># All controls</span>
+./render         <span class="i18n-cn"># 渲染引擎演示</span><span class="i18n-en"># Render demo</span></code></pre></div>
+    </div>
+
+    <div class="quickstart-tip">
+      <p>
+        <strong>&#128161;</strong>
+        <span class="i18n-cn">需要使用 CEF 或 WebView2 功能？请参考 <a href="https://github.com/rhett-lee/nim_duilib/blob/main/docs/CEF.md">CEF 文档</a> 和编译说明。</span>
+        <span class="i18n-en">Need CEF or WebView2? See the <a href="https://github.com/rhett-lee/nim_duilib/blob/main/docs/CEF.md">CEF docs</a> and build instructions.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AI Integration ==================== -->
+<section id="ai" class="section">
+  <div class="container">
+    <h2 class="section-title">
+      <span class="i18n-cn">AI 辅助开发</span>
+      <span class="i18n-en">AI-Assisted Development</span>
+    </h2>
+    <p class="section-subtitle">
+      <span class="i18n-cn">配合 AI 编程工具，用自然语言即可完成界面开发</span>
+      <span class="i18n-en">Use natural language to build UIs with AI coding tools</span>
+    </p>
+    <div class="ai-grid">
+      <div class="ai-card">
+        <h3><span class="ai-badge">TRAE</span> <span class="i18n-cn">项目级 Skill</span><span class="i18n-en">Project Skill</span></h3>
+        <p class="ai-desc"><span class="i18n-cn">在项目 .trae/skills/ 目录下配置 nim-duilib Skill，TRAE 自动理解框架 API 约定，对话即生成正确代码。</span><span class="i18n-en">Configure the nim-duilib Skill in .trae/skills/. TRAE automatically understands the framework's API conventions and generates correct code from conversation.</span></p>
+        <ul class="ai-features">
+          <li><span class="i18n-cn">六条必守约束自动遵守</span><span class="i18n-en">6 mandatory constraints auto-enforced</span></li>
+          <li><span class="i18n-cn">模板四件套自动生成</span><span class="i18n-en">Template scaffolding auto-generated</span></li>
+          <li><span class="i18n-cn">文档与源码漂移自动校验</span><span class="i18n-en">Doc-source drift auto-verified</span></li>
+          <li><span class="i18n-cn">/Zs 语法预检</span><span class="i18n-en">/Zs syntax pre-check</span></li>
+        </ul>
+      </div>
+      <div class="ai-card">
+        <h3><span class="ai-badge">Claude Code</span> <span class="i18n-cn">全局技能</span><span class="i18n-en">Global Skills</span></h3>
+        <p class="ai-desc"><span class="i18n-cn">注册后在任何项目中使用以下指令，AI 自动生成窗口、布局、控件和事件代码。</span><span class="i18n-en">Register once, use these commands in any project. AI auto-generates windows, layouts, controls and events.</span></p>
+        <ul class="ai-commands">
+          <li><code>/nim-init</code> <span class="i18n-cn">初始化开发环境</span><span class="i18n-en">Init dev environment</span></li>
+          <li><code>/nim-duilib-create-window</code> <span class="i18n-cn">创建新窗口</span><span class="i18n-en">Create new window</span></li>
+          <li><code>/nim-duilib-xml-layout</code> <span class="i18n-cn">设计 XML 布局</span><span class="i18n-en">Design XML layout</span></li>
+          <li><code>/nim-duilib-add-control</code> <span class="i18n-cn">添加控件</span><span class="i18n-en">Add control</span></li>
+          <li><code>/nim-duilib-event-handler</code> <span class="i18n-cn">事件处理</span><span class="i18n-en">Event handling</span></li>
+          <li><code>/nim-duilib-theme</code> <span class="i18n-cn">主题定制</span><span class="i18n-en">Theme customization</span></li>
+          <li><code>/nim-duilib-resource-pack</code> <span class="i18n-cn">资源打包</span><span class="i18n-en">Resource packaging</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== Documentation Links ==================== -->
+<section id="docs" class="section section-alt">
+  <div class="container">
+    <h2 class="section-title">
+      <span class="i18n-cn">参考文档</span>
+      <span class="i18n-en">Documentation</span>
+    </h2>
+    <p class="section-subtitle">
+      <span class="i18n-cn">详细的文档帮助你快速上手和深入理解框架</span>
+      <span class="i18n-en">Detailed docs to help you get started and master the framework</span>
+    </p>
+    <div class="doc-grid">
+      <a href="https://github.com/rhett-lee/nim_duilib/blob/main/docs/Getting-Started.md" target="_blank" rel="noopener" class="doc-card">
+        <div class="doc-icon">&#128640;</div>
+        <div class="doc-title"><span class="i18n-cn">快速上手</span><span class="i18n-en">Getting Started</span></div>
+        <div class="doc-desc"><span class="i18n-cn">从零开始搭建开发环境</span><span class="i18n-en">Set up dev environment from scratch</span></div>
+        <div class="doc-arrow">&#8594;</div>
+      </a>
+      <a href="https://github.com/rhett-lee/nim_duilib/blob/main/docs/Examples.md" target="_blank" rel="noopener" class="doc-card">
+        <div class="doc-icon">&#128241;</div>
+        <div class="doc-title"><span class="i18n-cn">示例程序</span><span class="i18n-en">Examples</span></div>
+        <div class="doc-desc"><span class="i18n-cn">22 个示例程序展示控件功能</span><span class="i18n-en">22 example programs</span></div>
+        <div class="doc-arrow">&#8594;</div>
+      </a>
+      <a href="https://github.com/rhett-lee/nim_duilib/blob/main/docs/Window.md" target="_blank" rel="noopener" class="doc-card">
+        <div class="doc-icon">&#128279;</div>
+        <div class="doc-title"><span class="i18n-cn">窗口样式</span><span class="i18n-en">Window Styles</span></div>
+        <div class="doc-desc"><span class="i18n-cn">窗口属性、阴影、DPI 配置</span><span class="i18n-en">Window properties, shadow, DPI</span></div>
+        <div class="doc-arrow">&#8594;</div>
+      </a>
+      <a href="https://github.com/rhett-lee/nim_duilib/blob/main/docs/Box.md" target="_blank" rel="noopener" class="doc-card">
+        <div class="doc-icon">&#128230;</div>
+        <div class="doc-title"><span class="i18n-cn">容器样式</span><span class="i18n-en">Box Layouts</span></div>
+        <div class="doc-desc"><span class="i18n-cn">12 种布局方案</span><span class="i18n-en">12 layout types</span></div>
+        <div class="doc-arrow">&#8594;</div>
+      </a>
+      <a href="https://github.com/rhett-lee/nim_duilib/blob/main/docs/Control.md" target="_blank" rel="noopener" class="doc-card">
+        <div class="doc-icon">&#127918;</div>
+        <div class="doc-title"><span class="i18n-cn">控件样式</span><span class="i18n-en">Control Styles</span></div>
+        <div class="doc-desc"><span class="i18n-cn">所有控件的属性说明</span><span class="i18n-en">All control properties</span></div>
+        <div class="doc-arrow">&#8594;</div>
+      </a>
+      <a href="https://github.com/rhett-lee/nim_duilib/blob/main/docs/Events.md" target="_blank" rel="noopener" class="doc-card">
+        <div class="doc-icon">&#9889;</div>
+        <div class="doc-title"><span class="i18n-cn">事件消息</span><span class="i18n-en">Events</span></div>
+        <div class="doc-desc"><span class="i18n-cn">控件事件与消息处理</span><span class="i18n-en">Control events and messages</span></div>
+        <div class="doc-arrow">&#8594;</div>
+      </a>
+      <a href="https://github.com/rhett-lee/nim_duilib/blob/main/docs/CEF.md" target="_blank" rel="noopener" class="doc-card">
+        <div class="doc-icon">&#127760;</div>
+        <div class="doc-title">CEF</div>
+        <div class="doc-desc"><span class="i18n-cn">CEF 控件集成说明</span><span class="i18n-en">CEF integration guide</span></div>
+        <div class="doc-arrow">&#8594;</div>
+      </a>
+      <a href="https://github.com/rhett-lee/nim_duilib/blob/main/build/build.md" target="_blank" rel="noopener" class="doc-card">
+        <div class="doc-icon">&#128736;</div>
+        <div class="doc-title"><span class="i18n-cn">编译脚本</span><span class="i18n-en">Build Scripts</span></div>
+        <div class="doc-desc"><span class="i18n-cn">各平台编译文档与脚本</span><span class="i18n-en">Cross-platform build docs</span></div>
+        <div class="doc-arrow">&#8594;</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== Footer ==================== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">nim_duilib</div>
+        <p><span class="i18n-cn">基于 C++ 的跨平台桌面 UI 框架</span>
+           <span class="i18n-en">Cross-Platform C++ Desktop UI Framework</span>
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4><span class="i18n-cn">相关链接</span><span class="i18n-en">Links</span></h4>
+        <ul>
+          <li><a href="https://github.com/rhett-lee/nim_duilib" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/rhett-lee/skia_compile" target="_blank" rel="noopener">Skia <span class="i18n-cn">编译文档</span><span class="i18n-en">Compile Docs</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024-2026 nim_duilib. <span class="i18n-cn">MIT 许可协议</span><span class="i18n-en">MIT License</span>.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== Lightbox ==================== -->
+<div id="lightbox" class="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="Screenshot">
+  <p id="lightbox-caption" class="lightbox-caption"></p>
+</div>
+
+<script src="js/main.js"></script>
+</body>
 </html>

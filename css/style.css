@@ -1,0 +1,1122 @@
+/* ==========================================================================
+   nim_duilib - Promotional Website Styles
+   A modern, responsive, themeable landing page for the nim_duilib
+   C++20 desktop UI framework.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. Theme Variables (Dark default + Light override)
+   ========================================================================== */
+:root {
+  /* Dark theme (default) */
+  --bg:            #0d1117;
+  --card:          #161b22;
+  --text:          #e6edf3;
+  --accent:        #58a6ff;
+  --border:        #30363d;
+  --muted:         #8b949e;
+
+  /* Semantic accent colors for special badges */
+  --green:         #3fb950;
+  --blue:          #58a6ff;
+  --orange:        #f78166;
+  --purple:        #bc8cff;
+
+  /* Code block background (always dark for consistency) */
+  --code-bg:       #0d1117;
+  --code-text:     #e6edf3;
+  --code-border:   #30363d;
+
+  /* Shadows & overlays */
+  --shadow-sm:     0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md:     0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg:     0 10px 30px rgba(0, 0, 0, 0.5);
+  --overlay:       rgba(0, 0, 0, 0.8);
+
+  /* Layout tokens */
+  --max-width:     1200px;
+  --radius-sm:     6px;
+  --radius-md:     10px;
+  --radius-lg:     16px;
+  --transition:    0.25s ease;
+
+  /* Typography */
+  --font-sans:     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                   "Helvetica Neue", Arial, "Noto Sans SC", "PingFang SC",
+                   "Microsoft YaHei", sans-serif;
+  --font-mono:     "JetBrains Mono", "Fira Code", "Consolas", "Courier New",
+                   monospace;
+}
+
+html[data-theme="light"] {
+  --bg:            #ffffff;
+  --card:          #f6f8fa;
+  --text:          #1f2328;
+  --accent:        #0969da;
+  --border:        #d0d7de;
+  --muted:         #656d76;
+
+  /* Special accent colors adjusted for light backgrounds */
+  --green:         #1a7f37;
+  --blue:           #0969da;
+  --orange:        #bc4c00;
+  --purple:        #8250df;
+
+  /* Code block stays dark for readability */
+  --code-bg:       #0d1117;
+  --code-text:     #e6edf3;
+  --code-border:   #30363d;
+
+  /* Lighter shadows on light theme */
+  --shadow-sm:     0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md:     0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg:     0 10px 30px rgba(0, 0, 0, 0.16);
+  --overlay:       rgba(0, 0, 0, 0.7);
+}
+
+/* ==========================================================================
+   2. Base / Reset
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition), color var(--transition);
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* ==========================================================================
+   3. Bilingual Support
+   ========================================================================== */
+html[data-lang="cn"] .i18n-en {
+  display: none;
+}
+
+html[data-lang="en"] .i18n-cn {
+  display: none;
+}
+
+/* ==========================================================================
+   4. Layout Helpers
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 80px 0;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  color: var(--muted);
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 48px;
+  font-size: 1.05rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ==========================================================================
+   5. Navigation Bar
+   ========================================================================== */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(13, 17, 23, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+html[data-theme="light"] nav {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+nav .nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text);
+}
+
+.nav-logo:hover {
+  text-decoration: none;
+}
+
+.nav-logo .logo-mark {
+  font-size: 1.4rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-links a {
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.nav-links a:hover {
+  background-color: var(--card);
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-toggle-btn {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--card);
+  color: var(--text);
+  font-size: 1rem;
+  transition: background-color var(--transition), border-color var(--transition),
+              transform var(--transition);
+}
+
+.nav-toggle-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.nav-hamburger {
+  display: none;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--card);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background-color: var(--text);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.nav-hamburger.active span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-hamburger.active span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ==========================================================================
+   6. Hero Section
+   ========================================================================== */
+#hero {
+  text-align: center;
+  padding: 100px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+#hero::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  color: var(--muted);
+  max-width: 720px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* ==========================================================================
+   7. Badges (pills)
+   ========================================================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--muted);
+  background-color: transparent;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.badge-green {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.badge-blue {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.badge-orange {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.badge-purple {
+  border-color: var(--purple);
+  color: var(--purple);
+}
+
+/* ==========================================================================
+   8. CTA Buttons
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform var(--transition), background-color var(--transition),
+              border-color var(--transition), box-shadow var(--transition);
+  border: 1px solid transparent;
+}
+
+.btn:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.btn-filled {
+  background-color: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-filled:hover {
+  filter: brightness(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: var(--card);
+}
+
+/* ==========================================================================
+   9. Generic Card Grid
+   ========================================================================== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: transform var(--transition), border-color var(--transition),
+              box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.card-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.card-desc {
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   10. Features Section
+   ========================================================================== */
+#features .card-grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+#features .card {
+  text-align: left;
+}
+
+/* ==========================================================================
+   11. Screenshots Section
+   ========================================================================== */
+#screenshots .screenshot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.screenshot-item {
+  cursor: zoom-in;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.screenshot-item img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.screenshot-item:hover img {
+  transform: scale(1.03);
+  box-shadow: var(--shadow-lg);
+}
+
+.screenshot-caption {
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   12. Platforms Section
+   ========================================================================== */
+#platforms .platform-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+#platforms .card {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+}
+
+#platforms .card-icon {
+  font-size: 2.6rem;
+}
+
+#platforms .card-title {
+  font-size: 1.05rem;
+}
+
+/* ==========================================================================
+   13. Quickstart Section (code blocks)
+   ========================================================================== */
+#quickstart .code-block {
+  background-color: var(--code-bg);
+  color: var(--code-text);
+  border: 1px solid var(--code-border);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin: 16px 0 28px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  position: relative;
+}
+
+#quickstart .code-block pre {
+  margin: 0;
+  white-space: pre;
+  font-family: inherit;
+}
+
+#quickstart .code-block code {
+  font-family: inherit;
+  color: var(--code-text);
+}
+
+#quickstart .code-label {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: var(--font-sans);
+}
+
+#quickstart .code-block::-webkit-scrollbar {
+  height: 8px;
+}
+
+#quickstart .code-block::-webkit-scrollbar-thumb {
+  background-color: var(--code-border);
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   14. AI Tools Section (two columns)
+   ========================================================================== */
+#ai .ai-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+#ai .ai-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: transform var(--transition), border-color var(--transition),
+              box-shadow var(--transition);
+}
+
+#ai .ai-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+#ai .ai-card .ai-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+#ai .ai-card .ai-icon {
+  font-size: 1.8rem;
+}
+
+#ai .ai-card .ai-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+#ai .ai-card .ai-desc {
+  color: var(--muted);
+  margin-bottom: 16px;
+  font-size: 0.96rem;
+}
+
+#ai .ai-card .ai-code {
+  background-color: var(--code-bg);
+  color: var(--code-text);
+  border: 1px solid var(--code-border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   15. Docs Section
+   ========================================================================== */
+#docs .doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+#docs .doc-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform var(--transition), border-color var(--transition),
+              box-shadow var(--transition);
+  text-decoration: none;
+  color: var(--text);
+}
+
+#docs .doc-card:hover {
+  text-decoration: none;
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+#docs .doc-card .doc-icon {
+  font-size: 1.6rem;
+}
+
+#docs .doc-card .doc-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+#docs .doc-card .doc-desc {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+#docs .doc-card .doc-arrow {
+  color: var(--accent);
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   16. Footer
+   ========================================================================== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 0 32px;
+  background-color: var(--bg);
+}
+
+footer .footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+footer .footer-brand {
+  max-width: 360px;
+}
+
+footer .footer-brand .footer-logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+footer .footer-brand p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+footer .footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+footer .footer-col h4 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+footer .footer-col ul li {
+  margin-bottom: 8px;
+}
+
+footer .footer-col ul li a {
+  color: var(--text);
+  font-size: 0.92rem;
+}
+
+footer .footer-col ul li a:hover {
+  color: var(--accent);
+}
+
+footer .footer-bottom {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   17. Lightbox Overlay
+   ========================================================================== */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--overlay);
+  padding: 32px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+#lightbox.active {
+  display: flex;
+  animation: fadeIn 0.25s ease;
+}
+
+#lightbox img {
+  max-width: 92vw;
+  max-height: 88vh;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  object-fit: contain;
+}
+
+#lightbox .lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+#lightbox .lightbox-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ==========================================================================
+   18. Responsive / Mobile
+   ========================================================================== */
+@media (max-width: 860px) {
+  .nav-hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background-color: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 24px 16px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .nav-links.open {
+    max-height: 400px;
+    padding: 8px 24px 16px;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 12px 8px;
+    border-radius: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+
+  /* Collapse grids to single column on small screens */
+  #platforms .platform-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #ai .ai-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .section {
+    padding: 60px 0;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  #hero {
+    padding: 60px 0 40px;
+  }
+
+  #platforms .platform-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-grid,
+  #screenshots .screenshot-grid,
+  #docs .doc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+  }
+
+  nav .nav-inner {
+    padding: 12px 16px;
+  }
+
+  .nav-logo {
+    font-size: 1rem;
+  }
+
+  footer .footer-inner {
+    flex-direction: column;
+  }
+
+  footer .footer-links {
+    gap: 28px;
+  }
+
+  #quickstart .code-block,
+  #ai .ai-code {
+    font-size: 0.82rem;
+    padding: 16px;
+  }
+}
+
+/* ==========================================================================
+   19. Additional Classes for Quickstart, Platforms, AI lists, Section alt
+   ========================================================================== */
+.section-alt {
+  background-color: var(--card);
+}
+
+/* Quickstart steps */
+.quickstart-step {
+  margin-bottom: 32px;
+}
+.quickstart-step h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.quickstart-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+.quickstart-tip {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-top: 24px;
+}
+.quickstart-tip p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* Platform card extra elements */
+.platform-icon {
+  font-size: 2.6rem;
+  line-height: 1;
+}
+.platform-version {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin: 4px 0 12px;
+}
+.platform-list {
+  text-align: left;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.platform-list li {
+  padding: 3px 0;
+}
+
+/* AI feature/command lists inside .ai-card */
+.ai-features {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ai-features li {
+  padding: 5px 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.ai-features li:last-child {
+  border-bottom: none;
+}
+.ai-commands {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ai-commands li {
+  padding: 6px 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.ai-commands li:last-child {
+  border-bottom: none;
+}
+.ai-commands code {
+  background-color: var(--code-bg);
+  color: var(--code-text);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  border: 1px solid var(--code-border);
+  white-space: nowrap;
+}
+
+/* AI badge tag inside .ai-card h3 */
+.ai-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background-color: var(--accent);
+  color: #ffffff;
+  margin-right: 8px;
+}
+
+/* Lightbox caption */
+.lightbox-caption {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  font-size: 0.95rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 6px 16px;
+  border-radius: 999px;
+}
+
+/* ==========================================================================
+   20. Accessibility & Misc
+   ========================================================================== */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background-color: var(--accent);
+  color: #ffffff;
+}
