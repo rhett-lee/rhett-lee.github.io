@@ -9,10 +9,16 @@
   <link rel="icon" href="assets/screenshots/basic.png" type="image/png">
 </head>
 <body>
-<!-- 引入官方异步JS库，ns参数替换为你的Workspace名称 -->
-<script src="https://counterapi.com/c.js?ns=rhett-lis-team-6029" async></script>
-<!-- 在页面需要显示计数的位置插入这个div -->
-<div class="counterapi" style="min-height:44px"></div>
+    <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const counter = new Counter({ workspace: 'rhett-lis-team-6029' });
+
+        // Increment the view count when the page loads
+        counter.up('github-io-page-views-counter');
+      });
+    </script>
+
 <!-- ==================== Navigation ==================== -->
 <nav id="nav">
   <div class="nav-inner">
